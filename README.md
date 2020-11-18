@@ -12,3 +12,7 @@ http://www.nseindia.com/live_market/dynaContent/live_analysis/top_gainers_losers
 4. On the webapp, display the values stored in Redis in a cards layout (unlike the original table). Use valid
 HTML5 + CSS3 to make the view look nice
 (eg: http://www.sketchappsources.com/resources/source-image/messages-cards-rahulbhadauria.png)
+
+Remaining:
+
+Connection Error: Because of redies
