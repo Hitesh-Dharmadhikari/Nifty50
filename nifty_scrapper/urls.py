@@ -18,6 +18,6 @@ from django.contrib import admin
 import app.views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', app.views.index),
+    url('', app.views.index),
     url(r'^get_nifty_data', app.views.process_gainer_loser_data),
 ]

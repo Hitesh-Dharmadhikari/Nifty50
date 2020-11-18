@@ -55,7 +55,7 @@ ROOT_URLCONF = 'nifty_scrapper.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,7 +125,7 @@ SCRAPPER_URL = {'nifty_gainer': \
                 'nifty_loser': \
                     'https://www.nseindia.com/live_market/dynaContent/live_analysis/losers/niftyLosers1.json'}
 
-BROKER_URL="redis://localhost:6379/1"
+BROKER_URL="redis://localhost:8000/1"
 BROKER_TRANSPORT="redis"
 
 API_TIME_DIFF  = 5

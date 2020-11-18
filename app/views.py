@@ -1,14 +1,14 @@
-from django.shortcuts import render_to_response, redirect, render, Http404, HttpResponse
+from django.shortcuts import redirect, render, Http404, HttpResponse
 import json
 import traceback
-import urllib2
+#import urllib2
 import redis
 import datetime
 from django.conf import settings
 
 NIFTY_GAINER_SCRAPPER_URL = settings.SCRAPPER_URL.get('nifty_gainer', '')
 NIFTY_LOSER_SCRAPPER_URL = settings.SCRAPPER_URL.get('nifty_loser', '')
-POOL = redis.ConnectionPool(host='localhost', port=6379, db=0)
+POOL = redis.ConnectionPool(host='localhost', port=8000, db=0)
 r_server = redis.StrictRedis(connection_pool=POOL)
 API_TIME_DIFF = settings.API_TIME_DIFF
 
@@ -16,6 +16,10 @@ API_TIME_DIFF = settings.API_TIME_DIFF
 def index(request):
     if request.method == "GET":
         gainer_json , loser_json = check_and_save_in_redis()
+        gainer_value = json.load(gainer_json)
+        loser_value = json.load(loser_json)
+        print(gainer_value)
+        print(loser_value)
         return render(request, 'index.html', {'gainer_data' : json.dumps(gainer_json),
                                              'loser_data': json.dumps(loser_json)})
 
@@ -25,12 +29,12 @@ def get_data_from_nifty(gainer_flag, loser_flag):
     loser_json = {}
     header = {'User-Agent': 'Mozilla/5.0'}
     if gainer_flag:
-        req = urllib2.Request(NIFTY_GAINER_SCRAPPER_URL, headers=header)
-        gainer_json = urllib2.urlopen(req).read()
+        #req = urllib2.Request(NIFTY_GAINER_SCRAPPER_URL, headers=header)
+        gainer_json = urlopen(NIFTY_GAINER_SCRAPPER_URL).read()
         gainer_json = json.loads(gainer_json)
     if loser_flag:
-        req = urllib2.Request(NIFTY_LOSER_SCRAPPER_URL, headers=header)
-        loser_json = urllib2.urlopen(req).read()
+      #  req = urllib2.Request(NIFTY_LOSER_SCRAPPER_URL, headers=header)
+        loser_json = urlopen(NIFTY_LOSER_SCRAPPER_URL).read()
         loser_json = json.loads(loser_json)
     return gainer_json, loser_json
 
